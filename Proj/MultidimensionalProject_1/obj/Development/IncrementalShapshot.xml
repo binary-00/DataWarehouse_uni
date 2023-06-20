@@ -1,0 +1,96 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>MultidimensionalProject_1</Database>
+    <Server>DESKTOP-GCND3F1</Server>
+    <ConnectionString>Data Source=DESKTOP-GCND3F1;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>WwWZSDNfuvoygcwIM/1eH9gGLBs=15/06/2023 19:55:3015/06/2023 19:55:29</TimeStamp>
+        <ID>
+          <String>Twitter</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>KFdveKtKqD+m9sjURKJiQ9waEBE=16/06/2023 11:37:5216/06/2023 11:37:52</TimeStamp>
+        <ID>
+          <String>Twitter_rsi</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>t231pSAl3FTcqKIWZGdfvFEYgGg=15/06/2023 19:57:3215/06/2023 19:57:31</TimeStamp>
+        <ID>
+          <String>Twitter</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>n7ym1IL1bn7MvlWJ00UavTvLVjc=16/06/2023 11:38:1716/06/2023 11:38:17</TimeStamp>
+        <ID>
+          <String>Twitter_rsi</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>oWdFxlJoXDODZbMJutBHLRk2jqM=15/06/2023 21:06:4315/06/2023 21:05:57</TimeStamp>
+        <ID>
+          <String>Dim Date</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>dsthXLhl1Bi7cmRxKnKbVV9zQEA=16/06/2023 12:02:4016/06/2023 11:38:40</TimeStamp>
+        <ID>
+          <String>Dim Date 1</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>qkYlZFMOk1dACKQlXWzHMSBq+XM=16/06/2023 11:39:4016/06/2023 11:38:40</TimeStamp>
+        <ID>
+          <String>Dim RSI</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>dBNNZzIKPvlfh/kRvmsDuD9mdmA=15/06/2023 21:06:4315/06/2023 21:05:57YnI0nEVl6fxxqdc9MXFqBk6rKrI=15/06/2023 21:05:5715/06/2023 21:05:57</TimeStamp>
+        <ID>
+          <String>Twitter</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>pUro85ZRs9sF64J1URTCWqtjKbk=16/06/2023 11:39:4016/06/2023 11:38:40B4zoqe2TVU4ltsTfRctqCFwf3IM=16/06/2023 11:38:4016/06/2023 11:38:40</TimeStamp>
+        <ID>
+          <String>Twitter_rsi</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>bTVz5MYyDmnP+2gyEyyukTJ7UhU=15/06/2023 19:53:2215/06/2023 19:53:21</TimeStamp>
+      <ID>
+        <String>MultidimensionalProject_1</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2023-06-16T11:02:43.376667Z</LastDeployed>
+</DeploymentSnapshot>

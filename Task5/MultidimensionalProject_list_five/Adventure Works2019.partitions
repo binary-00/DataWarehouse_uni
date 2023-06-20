@@ -1,0 +1,78 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="4f7d0c77-695e-4ba6-b4e9-b2d03d14dbf4" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Adventure Works2019</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>FACT SALES</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="1028c33a-406e-4437-bf7b-11aab3da5a7d">
+          <ID>FACT SALES</ID>
+          <Name>FACT SALES 20110701</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="QueryBinding" dwd:design-time-name="d484199e-b4fd-4ea0-8bff-99111cfdb865">
+            <DataSourceID>Adventure Works2019</DataSourceID>
+            <QueryDefinition>SELECT [list_five].[FACT_SALES].[ProductID],[list_five].[FACT_SALES].[CustomerID],[list_five].[FACT_SALES].[SalesPersonID],[list_five].[FACT_SALES].[OrderDate],[list_five].[FACT_SALES].[ShipDate],[list_five].[FACT_SALES].[OrderQty],[list_five].[FACT_SALES].[UnitPrice],[list_five].[FACT_SALES].[UnitPriceDiscount],[list_five].[FACT_SALES].[LineTotal]
+  FROM [list_five].[FACT_SALES]
+		WHERE [list_five].[FACT_SALES].[OrderDate] &lt; 20110701</QueryDefinition>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+        <Partition dwd:design-time-name="f9b7e99c-f5fb-487d-937c-0b183cbdf008">
+          <ID>FACT SALES 20120101</ID>
+          <Name>FACT SALES 20120101</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="QueryBinding" dwd:design-time-name="138c8979-e58f-4fa6-8fff-92be219783b8">
+            <DataSourceID>Adventure Works2019</DataSourceID>
+            <QueryDefinition>SELECT [list_five].[FACT_SALES].[ProductID],[list_five].[FACT_SALES].[CustomerID],[list_five].[FACT_SALES].[SalesPersonID],[list_five].[FACT_SALES].[OrderDate],[list_five].[FACT_SALES].[ShipDate],[list_five].[FACT_SALES].[OrderQty],[list_five].[FACT_SALES].[UnitPrice],[list_five].[FACT_SALES].[UnitPriceDiscount],[list_five].[FACT_SALES].[LineTotal]
+  FROM [list_five].[FACT_SALES]
+		WHERE [list_five].[FACT_SALES].[OrderDate] &lt; 20120101</QueryDefinition>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+        <Partition dwd:design-time-name="3f581b75-3475-4b7e-89c9-e79f4a28b8e5">
+          <ID>FACT SALES 20130101</ID>
+          <Name>FACT SALES 20130101</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="QueryBinding" dwd:design-time-name="b56f91d8-abdb-4a29-953f-e567e4d11a3c">
+            <DataSourceID>Adventure Works2019</DataSourceID>
+            <QueryDefinition>SELECT [list_five].[FACT_SALES].[ProductID],[list_five].[FACT_SALES].[CustomerID],[list_five].[FACT_SALES].[SalesPersonID],[list_five].[FACT_SALES].[OrderDate],[list_five].[FACT_SALES].[ShipDate],[list_five].[FACT_SALES].[OrderQty],[list_five].[FACT_SALES].[UnitPrice],[list_five].[FACT_SALES].[UnitPriceDiscount],[list_five].[FACT_SALES].[LineTotal]
+  FROM [list_five].[FACT_SALES]
+		WHERE [list_five].[FACT_SALES].[OrderDate] &lt; 20130101</QueryDefinition>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+        <Partition dwd:design-time-name="0c4fd4d5-eb35-48e3-84d3-efce069f83ae">
+          <ID>FACT SALES 20140101</ID>
+          <Name>FACT SALES 20140101</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="QueryBinding" dwd:design-time-name="05f953b0-2969-4323-a57a-9be76a557306">
+            <DataSourceID>Adventure Works2019</DataSourceID>
+            <QueryDefinition>SELECT [list_five].[FACT_SALES].[ProductID],[list_five].[FACT_SALES].[CustomerID],[list_five].[FACT_SALES].[SalesPersonID],[list_five].[FACT_SALES].[OrderDate],[list_five].[FACT_SALES].[ShipDate],[list_five].[FACT_SALES].[OrderQty],[list_five].[FACT_SALES].[UnitPrice],[list_five].[FACT_SALES].[UnitPriceDiscount],[list_five].[FACT_SALES].[LineTotal]
+  FROM [list_five].[FACT_SALES]
+		WHERE [list_five].[FACT_SALES].[OrderDate] &lt; 20140101</QueryDefinition>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

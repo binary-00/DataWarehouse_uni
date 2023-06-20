@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/11/2023 7:59:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GCND3F1"
+  DTS:CreatorName="DESKTOP-GCND3F1\sql"
+  DTS:DTSID="{CF3B6777-8795-4127-829F-5024A166F021}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5209.0"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="22"
+  DTS:VersionGUID="{C88F9629-FCDB-44BF-B523-95F925E61A0D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-GCND3F1.AdventureWorks2019]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+      DTS:ObjectName="DESKTOP-GCND3F1.AdventureWorks2019">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-GCND3F1;Initial Catalog=AdventureWorks2019;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}DESKTOP-GCND3F1.AdventureWorks2019;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CREATE SCHEMA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2DED27A8-F6CB-4A25-95E2-CB12782D1F3C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CREATE SCHEMA"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+          SQLTask:SqlStatementSource="CREATE SCHEMA list_four;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\CREATE TABLES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{22C5F10C-6087-4892-91A9-2B90C17EF296}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CREATE TABLES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+          SQLTask:SqlStatementSource="CREATE TABLE list_four.DIM_CUSTOMER (&#xA;    CustomerID INT PRIMARY KEY,&#xA;    FirstName VARCHAR(50),&#xA;    LastName VARCHAR(50),&#xA;    Title VARCHAR(50),&#xA;    City VARCHAR(50),&#xA;    TerritoryName VARCHAR(50),&#xA;    CountryRegionCode CHAR(3) DEFAULT '000',&#xA;    [Group] VARCHAR(50) DEFAULT 'Unknown'&#xA;);&#xA;&#xA;CREATE TABLE list_four.DIM_PRODUCT (&#xA;    ProductID INT PRIMARY KEY,&#xA;    Name VARCHAR(50),&#xA;    ListPrice DECIMAL(19,4),&#xA;    Color VARCHAR(15) DEFAULT 'Unknown',&#xA;    SubCategoryName VARCHAR(50) DEFAULT 'Unknown',&#xA;    CategoryName VARCHAR(50),&#xA;    Weight DECIMAL(8,2),&#xA;    Size VARCHAR(5),&#xA;    IsPurchased BIT&#xA;);&#xA;&#xA;CREATE TABLE list_four.DIM_SALESPERSON (&#xA;    SalesPersonID INT PRIMARY KEY,&#xA;    FirstName VARCHAR(50),&#xA;    LastName VARCHAR(50),&#xA;    Title VARCHAR(50),&#xA;    Gender CHAR(1),&#xA;    CountryRegionCode CHAR(3) DEFAULT '000',&#xA;    [Group] VARCHAR(50) DEFAULT 'Unknown'&#xA;);&#xA;&#xA;CREATE TABLE list_four.FACT_SALES (&#xA;    ProductID INT,&#xA;    CustomerID INT,&#xA;    SalesPersonID INT,&#xA;    OrderDate INT,&#xA;    ShipDate INT,&#xA;    OrderQty SMALLINT,&#xA;    UnitPrice DECIMAL(19,4),&#xA;    UnitPriceDiscount DECIMAL(19,4),&#xA;    LineTotal DECIMAL(38,6),&#xA;    &#xA;&#x9;FOREIGN KEY (ProductID) REFERENCES list_four.DIM_PRODUCT(ProductID),&#xA;&#x9;FOREIGN KEY (CustomerID) REFERENCES list_four.DIM_CUSTOMER(CustomerID),&#xA;&#x9;FOREIGN KEY (SalesPersonID) REFERENCES list_four.DIM_SALESPERSON(SalesPersonID)&#xA;);&#xA;&#xA;-- 3. Create DIM_TIME based on OrderDate and ShipDate&#xA;CREATE TABLE list_four.DIM_TIME (&#xA;&#x9;DateKey INT PRIMARY KEY,&#xA;&#x9;[Year] SMALLINT,&#xA;&#x9;[Month] TINYINT,&#xA;&#x9;[Day] TINYINT&#xA;);&#xA;&#xA;INSERT INTO list_four.DIM_TIME (DateKey, [Year], [Month], [Day])&#xA;SELECT DISTINCT &#xA;&#x9;OrderDate AS DateKey,&#xA;&#x9;DATEPART(YEAR, CAST(CAST(OrderDate AS CHAR(8)) AS DATE)) AS [Year],&#xA;&#x9;DATEPART(MONTH, CAST(CAST(OrderDate AS CHAR(8)) AS DATE)) AS [Month],&#xA;&#x9;DATEPART(DAY, CAST(CAST(OrderDate AS CHAR(8)) AS DATE)) AS [Day]&#xA;FROM list_four.FACT_SALES&#xA;UNION&#xA;SELECT DISTINCT &#xA;&#x9;ShipDate AS DateKey,&#xA;&#x9;DATEPART(YEAR, CAST(CAST(ShipDate AS CHAR(8)) AS DATE)) AS [Year],&#xA;&#x9;DATEPART(MONTH, CAST(CAST(ShipDate AS CHAR(8)) AS DATE)) AS [Month],&#xA;&#x9;DATEPART(DAY, CAST(CAST(ShipDate AS CHAR(8)) AS DATE)) AS [Day]&#xA;FROM list_four.FACT_SALES;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DROP SCHEMA  TABLES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{37a79b87-b7f8-4e3c-9b85-2b2b945d446b}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DROP SCHEMA  TABLES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\DROP SCHEMA  TABLES.EventHandlers[OnInformation]"
+          DTS:CreationName="OnInformation"
+          DTS:DTSID="{a8c74a29-0736-4f7d-bb92-3a4e87127211}"
+          DTS:EventID="0"
+          DTS:EventName="OnInformation"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{1d628e11-2186-4b5f-be99-f97bd985e2cd}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+          SQLTask:SqlStatementSource="DROP TABLE list_four.FACT_SALES;&#xA;DROP TABLE list_four.DIM_TIME;&#xA;DROP TABLE list_four.DIM_SALESPERSON;&#xA;DROP TABLE list_four.DIM_PRODUCT;&#xA;DROP TABLE list_four.DIM_CUSTOMER;&#xA;&#xA;DROP TABLE list_four.load_status;&#xA;&#xA;DROP SCHEMA list_four;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\INSERTION"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{024BD7B3-91B4-41A3-B461-2886ACF45B23}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="INSERTION"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+          SQLTask:SqlStatementSource="INSERT INTO list_four.DIM_CUSTOMER (CustomerID, FirstName, LastName, Title, City, TerritoryName, CountryRegionCode)&#xA;SELECT DISTINCT c.CustomerID, p.FirstName, p.LastName, p.Title, a.City, t.Name AS TerritoryName, '000' AS CountryRegionCode&#xA;FROM Sales.Customer AS c&#xA;JOIN Person.Person AS p&#xA;ON c.PersonID = p.BusinessEntityID&#xA;JOIN Person.BusinessEntityAddress AS bea&#xA;ON bea.BusinessEntityID = c.StoreID&#xA;JOIN Person.Address AS a&#xA;ON a.AddressID = bea.AddressID&#xA;JOIN Sales.SalesTerritory AS t&#xA;ON t.TerritoryID = c.TerritoryID;&#xA;&#xA;&#xA;INSERT INTO list_four.DIM_PRODUCT (ProductID, Name, ListPrice, Color, SubCategoryName, CategoryName, Weight, Size)&#xA;SELECT &#xA;    p.ProductID,&#xA;    p.Name,&#xA;    p.ListPrice,&#xA;    p.Color,&#xA;    sc.Name AS SubCategoryName,&#xA;    c.Name AS CategoryName,&#xA;    p.Weight,&#xA;    p.Size&#xA;FROM Production.Product AS p&#xA;LEFT JOIN Production.ProductSubcategory AS sc&#xA;ON p.ProductSubcategoryID = sc.ProductSubcategoryID&#xA;LEFT JOIN Production.ProductCategory AS c&#xA;ON sc.ProductCategoryID = c.ProductCategoryID;&#xA;&#xA;&#xA;INSERT INTO list_four.DIM_SALESPERSON (SalesPersonID, FirstName, LastName, Title, CountryRegionCode)&#xA;SELECT &#xA;    sp.BusinessEntityID AS SalesPersonID,&#xA;    p.FirstName,&#xA;    p.LastName,&#xA;    p.Title,&#xA;    t.CountryRegionCode&#xA;FROM Sales.SalesPerson AS sp&#xA;JOIN Person.Person AS p&#xA;ON sp.BusinessEntityID = p.BusinessEntityID&#xA;JOIN Sales.SalesTerritory AS t&#xA;ON sp.TerritoryID = t.TerritoryID;&#xA;&#xA;&#xA;INSERT INTO list_four.DIM_TIME (DateKey, [Year], [Month], [Day])&#xA;SELECT DISTINCT &#xA;    CAST(REPLACE(CONVERT(VARCHAR(10), soh.ShipDate, 111), '/', '') AS INT) AS DateKey,&#xA;    DATEPART(YEAR, soh.ShipDate) AS [Year],&#xA;    DATEPART(MONTH, soh.ShipDate) AS [Month],&#xA;    DATEPART(DAY, soh.ShipDate) AS [Day]&#xA;FROM Sales.SalesOrderHeader AS soh&#xA;WHERE NOT EXISTS (&#xA;    SELECT 1&#xA;    FROM list_four.DIM_TIME AS t&#xA;    WHERE t.DateKey = CAST(REPLACE(CONVERT(VARCHAR(10), soh.ShipDate, 111), '/', '') AS INT)&#xA;);&#xA;&#xA;&#xA;INSERT INTO list_four.FACT_SALES (ProductID, CustomerID, SalesPersonID, OrderDate, ShipDate, OrderQty, UnitPrice, UnitPriceDiscount, LineTotal)&#xA;SELECT &#xA;    sod.ProductID,&#xA;    soh.CustomerID,&#xA;    soh.SalesPersonID,&#xA;    CAST(REPLACE(CONVERT(VARCHAR(10), soh.OrderDate, 111), '/', '') AS INT) AS OrderDate,&#xA;    CAST(REPLACE(CONVERT(VARCHAR(10), soh.ShipDate, 111), '/', '') AS INT) AS ShipDate,&#xA;    sod.OrderQty,&#xA;    sod.UnitPrice,&#xA;    sod.UnitPriceDiscount,&#xA;    sod.LineTotal&#xA;FROM Sales.SalesOrderHeader AS soh&#xA;JOIN Sales.SalesOrderDetail AS sod&#xA;ON soh.SalesOrderID = sod.SalesOrderID&#xA;WHERE EXISTS (&#xA;    SELECT 1&#xA;    FROM list_four.DIM_SALESPERSON AS sp&#xA;    WHERE sp.SalesPersonID = soh.SalesPersonID&#xA;)&#xA;AND EXISTS (&#xA;    SELECT 1&#xA;    FROM list_four.DIM_TIME AS t&#xA;    WHERE t.DateKey = CAST(REPLACE(CONVERT(VARCHAR(10), soh.OrderDate, 111), '/', '') AS INT)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\INTEGRITY CONSTRAINS"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DA4D37EA-0866-405A-B3A7-C54281F4C862}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="INTEGRITY CONSTRAINS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\INTEGRITY CONSTRAINS.EventHandlers[OnPostExecute]"
+          DTS:CreationName="OnPostExecute"
+          DTS:DTSID="{CB4DC616-CE46-4CD8-845D-765B68D46406}"
+          DTS:EventID="0"
+          DTS:EventName="OnPostExecute"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{E8B07096-77AE-4A54-9FFE-B7A366380752}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\INTEGRITY CONSTRAINS.EventHandlers[OnPostExecute]\LOAD STATUS"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{94A31127-6C09-48EF-8540-00C717630122}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="LOAD STATUS"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+                  SQLTask:SqlStatementSource="CREATE TABLE list_four.load_status (&#xA;    id INT IDENTITY(1,1) PRIMARY KEY,&#xA;    table_name VARCHAR(50),&#xA;    status VARCHAR(50),&#xA;    timestamp DATETIME DEFAULT GETDATE()&#xA;);&#xA;&#xA;INSERT INTO list_four.load_status (table_name, status)&#xA;VALUES &#xA;('DIM_CUSTOMER', 'Success'),&#xA;('DIM_PRODUCT', 'Success'),&#xA;('DIM_SALESPERSON', 'Success'),&#xA;('FACT_SALES', 'Success'),&#xA;('DIM_TIME', 'Success');&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E600B3EA-A1CE-479F-A4A4-0F2AEBF2DB8F}"
+          SQLTask:SqlStatementSource="ALTER TABLE list_four.FACT_SALES&#xA;ADD FOREIGN KEY (OrderDate) REFERENCES list_four.DIM_TIME(DateKey);&#xA;&#xA;ALTER TABLE list_four.FACT_SALES&#xA;ADD FOREIGN KEY (ShipDate) REFERENCES list_four.DIM_TIME(DateKey);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D297B65C-8B88-4530-B1B6-54BDB40735A4}"
+      DTS:From="Package\DROP SCHEMA  TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\CREATE SCHEMA" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{08D7397E-90D5-4FDD-934C-0B0F28291A91}"
+      DTS:From="Package\CREATE SCHEMA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\CREATE TABLES" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{7B03EC60-337A-4C43-B4E0-00418F9DEC17}"
+      DTS:From="Package\CREATE TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\INTEGRITY CONSTRAINS" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{E16B1261-9D11-44CF-B389-617B26B1DC64}"
+      DTS:From="Package\INTEGRITY CONSTRAINS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\INSERTION" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,42"
+          Id="Package\CREATE SCHEMA"
+          TopLeft="125,125" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\CREATE TABLES"
+          TopLeft="201,223" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DROP SCHEMA  TABLES"
+          TopLeft="97.5,28.75" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\INSERTION"
+          TopLeft="372,419" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\INTEGRITY CONSTRAINS"
+          TopLeft="280,315" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="194,70.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11,54.25"
+              Start="0,0"
+              End="11,46.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.125" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.125"
+                    Point2="0,27.125"
+                    Point3="4,27.125" />
+                  <mssgle:LineSegment
+                    End="7,27.125" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7,27.125"
+                    Point2="11,27.125"
+                    Point3="11,31.125" />
+                  <mssgle:LineSegment
+                    End="11,46.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="205,167">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="77.5,56"
+              Start="0,0"
+              End="77.5,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="4,28" />
+                  <mssgle:LineSegment
+                    End="73.5,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="73.5,28"
+                    Point2="77.5,28"
+                    Point3="77.5,32" />
+                  <mssgle:LineSegment
+                    End="77.5,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="282.5,265">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="97,50"
+              Start="0,0"
+              End="97,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21"
+                    Point2="0,25"
+                    Point3="4,25" />
+                  <mssgle:LineSegment
+                    End="93,25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="93,25"
+                    Point2="97,25"
+                    Point3="97,29" />
+                  <mssgle:LineSegment
+                    End="97,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="379.5,357">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="74,62"
+              Start="0,0"
+              End="74,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27"
+                    Point2="0,31"
+                    Point3="4,31" />
+                  <mssgle:LineSegment
+                    End="70,31" />
+                  <mssgle:CubicBezierSegment
+                    Point1="70,31"
+                    Point2="74,31"
+                    Point3="74,35" />
+                  <mssgle:LineSegment
+                    End="74,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package\INTEGRITY CONSTRAINS.EventHandlers[OnPostExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\INTEGRITY CONSTRAINS.EventHandlers[OnPostExecute]\LOAD STATUS"
+          TopLeft="441,106" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

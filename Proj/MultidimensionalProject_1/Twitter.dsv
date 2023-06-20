@@ -1,0 +1,91 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="9df4aa5b-79a4-44f1-bc93-96c062847323" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Twitter</ID>
+  <Name>Twitter</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:NameMatchingCriteria</Name>
+      <Value>1</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>Twitter</DataSourceID>
+  <Schema>
+    <xs:schema id="Twitter" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="Twitter" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="b438a51c-fbeb-4707-885e-649a25867470">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_DimDate" msprop:design-time-name="44f61d1c-8b64-4e1c-8de6-560737566f3d" msprop:DbTableName="DimDate" msprop:FriendlyName="DimDate" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="DateKey" msprop:design-time-name="90058df0-aefa-4fd7-b7f8-20babe9a26cc" msprop:DbColumnName="DateKey" msprop:FriendlyName="DateKey" type="xs:int" />
+                  <xs:element name="Date" msprop:design-time-name="623438cb-3804-48b5-8db8-4a7f374acdd1" msprop:DbColumnName="Date" msprop:FriendlyName="Date" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="Day" msprop:design-time-name="ea9e3418-60a4-4424-8f47-fa0ec2329750" msprop:DbColumnName="Day" msprop:FriendlyName="Day" type="xs:int" minOccurs="0" />
+                  <xs:element name="Month" msprop:design-time-name="3b52197e-eb30-4afb-b92b-095e870c45f6" msprop:DbColumnName="Month" msprop:FriendlyName="Month" type="xs:int" minOccurs="0" />
+                  <xs:element name="Year" msprop:design-time-name="d457915c-46e8-4a4b-9be0-3e3cf0bfd6fa" msprop:DbColumnName="Year" msprop:FriendlyName="Year" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_FactTwitterData" msprop:design-time-name="50557059-3ab3-455d-8abf-d6b7472dcf49" msprop:DbTableName="FactTwitterData" msprop:FriendlyName="FactTwitterData" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="DateKey" msprop:design-time-name="101e7197-f391-4d4d-a5c6-ee92b9de73e5" msprop:DbColumnName="DateKey" msprop:FriendlyName="DateKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="OpeningPrice" msprop:design-time-name="7a784b37-0376-4e7f-bffb-49d1b33ec067" msprop:DbColumnName="OpeningPrice" msprop:FriendlyName="OpeningPrice" type="xs:double" minOccurs="0" />
+                  <xs:element name="ClosingPrice" msprop:design-time-name="a6ec956b-b5ed-464b-959d-18178a00bd65" msprop:DbColumnName="ClosingPrice" msprop:FriendlyName="ClosingPrice" type="xs:double" minOccurs="0" />
+                  <xs:element name="HighestRecorded" msprop:design-time-name="a9a02940-ab66-479a-b3ba-a996b6e8cf3a" msprop:DbColumnName="HighestRecorded" msprop:FriendlyName="HighestRecorded" type="xs:double" minOccurs="0" />
+                  <xs:element name="LowestRecorded" msprop:design-time-name="4e913276-af4a-48d8-b6a8-84fdd8173c7a" msprop:DbColumnName="LowestRecorded" msprop:FriendlyName="LowestRecorded" type="xs:double" minOccurs="0" />
+                  <xs:element name="AdjustedClosing" msprop:design-time-name="774b1944-7dd2-4d0c-a481-90edd19218cf" msprop:DbColumnName="AdjustedClosing" msprop:FriendlyName="AdjustedClosing" type="xs:double" minOccurs="0" />
+                  <xs:element name="Volume" msprop:design-time-name="4988784a-1618-4267-8ab2-903634b4ad99" msprop:DbColumnName="Volume" msprop:FriendlyName="Volume" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DimDate" />
+          <xs:field xpath="DateKey" />
+        </xs:unique>
+      </xs:element>
+      <xs:annotation>
+        <xs:appinfo>
+          <msdata:Relationship name="FactTwitterData-DimDate" msdata:parent="dbo_DimDate" msdata:child="dbo_FactTwitterData" msdata:parentkey="DateKey" msdata:childkey="DateKey" />
+        </xs:appinfo>
+      </xs:annotation>
+    </xs:schema>
+    <Twitter xmlns="" />
+  </Schema>
+</DataSourceView>

@@ -1,0 +1,109 @@
+----- 1. Display the names of the products for which the individual elements are defined, example:
+-- 1. Color
+-- 2. Color or Weight
+-- 3. Weight and Size
+
+SELECT [Name], [Color], [Weight], [Size]
+FROM Production.Product
+WHERE [Name] IS NOT NULL AND [Color] IS NOT NULL AND [Weight] IS NOT NULL AND [Size] IS NOT NULL
+ORDER BY [Color] ASC, [Weight] ASC, [Size] ASC;
+
+-- 1 Replace 'Red' with the desired color
+SELECT Name, Color
+FROM Production.Product
+WHERE Color = 'Red' AND Color IS NOT NULL
+ORDER BY Color;
+
+-- 2 Replace Color or Weight with the desired values
+SELECT Name, Color, [Weight]
+FROM Production.Product
+WHERE Color = 'Yellow' OR [Weight] = 3.10 AND [Color] IS NOT NULL OR [Weight] IS NOT NULL 
+ORDER BY [Color] ASC, [Weight] ASC ;
+
+SELECT * FROM Production.Product
+
+-- 3 Replace Weight & Size with the desired values
+SELECT Name, Size, Weight
+FROM Production.Product
+WHERE Weight > 10 AND Size = '50' AND [Weight] IS NOT NULL AND [Size] IS NOT NULL 
+ORDER BY [Weight] ASC, [Size] ASC ;
+
+----- 2. Display the name of the lightest and the heaviest product containing the name "Road". (If possible: in a single query)
+SELECT Name, Weight
+FROM Production.Product
+WHERE Name LIKE '%Road%'
+AND Weight = (SELECT MIN(Weight) FROM Production.Product)
+OR Weight = (SELECT MAX(Weight) FROM Production.Product)
+ORDER BY Weight ASC
+
+----- 3. Display the products whose price is higher than the average price.
+-- product standard prices (from production.product)
+SELECT Name, ProductID, StandardCost
+FROM Production.Product
+WHERE StandardCost > (SELECT AVG(StandardCost) FROM Production.Product)
+-- selling prices (sales.salesorderdetail)
+SELECT Name, ProductID, ListPrice
+FROM Production.Product
+WHERE ListPrice > (SELECT AVG(UnitPrice) FROM Sales.SalesOrderDetail)
+
+----- 4. Display the average price of the product, depending on the category (ProductCategory). Perform the correct join.
+SELECT pc.ProductCategoryID, pc.Name as ProductCategoryName, AVG(p.ListPrice) as AveragePrice
+FROM Production.Product p
+INNER JOIN Production.ProductSubcategory ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID -- ProductSubcategoryID must remain same in both Production.Product & Production.ProductSubcategory
+INNER JOIN Production.ProductCategory pc ON ps.ProductCategoryID = pc.ProductCategoryID -- ProductCategoryID must remain same in Production.ProductCategory & Production.ProductSubcategory (ps,from previous line)
+GROUP BY pc.ProductCategoryID, pc.Name
+ORDER BY AveragePrice DESC;
+
+----- 5. Display the names of all customers with the total sum made by them purchases (use SalesOrderHeader.SubTotal).
+--a. The list has to be sorted (descending) by the total amount of purchases
+SELECT CONCAT(p.FirstName, ' ', p.LastName) AS CustomerName, SUM(soh.SubTotal) AS TotalPurchases
+FROM Sales.Customer c
+JOIN Person.Person p ON c.PersonID = p.BusinessEntityID -- PersonID column form Sales.Customer matches BusinessEntityID from Person.Person
+JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID -- CustomerID is same from Sales.Customer & Sales.SalesOrderHeader
+GROUP BY c.CustomerID, p.FirstName, p.LastName
+ORDER BY TotalPurchases DESC;
+
+----- 6. Display the names of all the vendors together with the total sum made by the sell them (useSalesOrderHeader.SubTotal).
+--a. The list has to be sorted (descending) by the total sales volume
+SELECT pv.Name AS VendorName, SUM(soh.SubTotal) AS TotalSales
+FROM Purchasing.Vendor pv
+JOIN Purchasing.ProductVendor ppv ON pv.BusinessEntityID = ppv.BusinessEntityID -- BusinessEntityID from Purchasing.Vendor & Purchasing.ProductVendor must match
+JOIN Production.Product p ON ppv.ProductID = p.ProductID -- ProductID from Purchasing.ProductVendor & Production.Product must match
+JOIN Sales.SalesOrderDetail sod ON p.ProductID = sod.ProductID -- ProductID from Production.Product & Sales.SalesOrderDetail must match
+JOIN Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID -- SalesOrderID must match from Sales.SalesOrderDetail & Sales.SalesOrderHeader
+GROUP BY pv.Name
+ORDER BY TotalSales DESC;
+
+----- 7. Display the categories, sub-categories, and names of retailers and the average discount on products (relative to the category) given by the seller.
+--a. Display only the lines in which the average discount is greater than zero.
+SELECT c.[Name] AS Category, sc.[Name] AS SubCategory, s.[Name] AS Seller, AVG(d.[DiscountPct]) AS AverageDiscount
+FROM Production.Product p
+JOIN Production.ProductSubcategory sc ON p.ProductSubcategoryID = sc.ProductSubcategoryID -- ProductionSubcategoryID from ProductSubcategory & Product matches with ON clause
+JOIN Production.ProductCategory c ON sc.ProductCategoryID = c.ProductCategoryID -- ProductCategoryID values 
+JOIN Sales.SalesOrderDetail sod ON p.ProductID = sod.ProductID
+JOIN Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID
+JOIN Sales.Customer c2 ON soh.CustomerID = c2.CustomerID
+JOIN Sales.Store s ON c2.StoreID = s.BusinessEntityID
+JOIN Sales.SpecialOfferProduct sop ON p.ProductID = sop.ProductID
+JOIN Sales.SpecialOffer d ON sop.SpecialOfferID = d.SpecialOfferID
+GROUP BY c.[Name], sc.[Name], s.[Name]
+HAVING AVG(d.[DiscountPct]) > 0; 
+
+----- 8. Create a simple view that contains information regarding transactions (Value and Quantity), time (Month and Year) and product (Name, Category and Subcategory)
+GO
+CREATE VIEW TransactionInfo AS
+SELECT sod.UnitPrice * sod.OrderQty AS TransactionValue, -- value = UnitPrice * Qty
+       sod.OrderQty AS TransactionQuantity, 
+       MONTH(soh.OrderDate) AS TransactionMonth,
+       YEAR(soh.OrderDate) AS TransactionYear,
+       p.Name AS ProductName,
+       pc.Name AS ProductCategory,
+       psc.Name AS ProductSubcategory
+FROM Sales.SalesOrderDetail sod
+JOIN Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID
+JOIN Production.Product p ON sod.ProductID = p.ProductID
+JOIN Production.ProductSubcategory psc ON p.ProductSubcategoryID = psc.ProductSubcategoryID
+JOIN Production.ProductCategory pc ON psc.ProductCategoryID = pc.ProductCategoryID;
+GO
+SELECT *
+FROM TransactionInfo;
